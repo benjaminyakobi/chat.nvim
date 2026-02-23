@@ -1,3 +1,4 @@
+print("chat: init")
 local M = {}
 
 function M.setup(opts)
