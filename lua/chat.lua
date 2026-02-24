@@ -1,16 +1,15 @@
-print("chat: init")
 local M = {}
 
 function M.setup(opts)
   opts = opts or {}
 
-  vim.keymap.set("n", "<Leader>8", function()
+  vim.keymap.set("n", "<Leader>81", function()
     if opts.name then
-      print("chat: hello, " .. opts.name)
+      print("chat: hello world from " .. opts.name)
     else
-      print("chat: hello")
+      print("chat: hello world")
     end
-  end)
+  end, { desc = "Say Hello World" })
 end
 
 return M
