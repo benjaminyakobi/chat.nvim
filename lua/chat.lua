@@ -33,7 +33,7 @@ function M.show_chat_box()
     title_pos = "center",
   })
 
-  vim.api.nvim_win_set_option(win, "number", true)
+  vim.api.nvim_set_option_value("number", true, { win = win })
 end
 
 return M
