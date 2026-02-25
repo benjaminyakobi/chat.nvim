@@ -11,6 +11,7 @@ function M.setup(opts)
     end
   end, { desc = "Say Hello World" })
   vim.keymap.set("n", "<Leader>82", M.show_chat_box, { desc = "Open chat box" })
+  vim.keymap.set("n", "<Leader>83", M.close_chat_box, { desc = "Close chat box" })
 end
 
 function M.show_chat_box()
@@ -21,7 +22,7 @@ function M.show_chat_box()
   local row = math.floor((vim.o.lines - height) / 2)
   local col = math.floor((vim.o.columns - width) / 2)
 
-  local win = vim.api.nvim_open_win(buf, true, {
+  M.chat_win_id = vim.api.nvim_open_win(buf, true, {
     relative = "editor",
     row = row,
     col = col,
@@ -33,7 +34,16 @@ function M.show_chat_box()
     title_pos = "center",
   })
 
-  vim.api.nvim_set_option_value("number", true, { win = win })
+  vim.api.nvim_set_option_value("number", true, { win = M.chat_win_id })
+end
+
+function M.close_chat_box()
+  if M.chat_win_id then
+    vim.api.nvim_win_close(M.chat_win_id, true)
+    M.chat_win_id = nil
+  else
+    print("no open window")
+  end
 end
 
 return M
