@@ -75,7 +75,10 @@ function M.get_visual_selection()
     s_col, e_col = e_col, s_col
   end
 
+  -- This returns the selection where the end is the cursor position
   -- return vim.api.nvim_buf_get_text(0, s_line - 1, s_col - 1, e_line - 1, e_col, {})
+
+  -- This return the selection of the whole line (not the cursor position)
   return vim.api.nvim_buf_get_lines(0, s_line - 1, e_line, false)
 end
 return M
