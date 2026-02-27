@@ -69,7 +69,8 @@ end
 
 function M.flush_to_buf(source_buf, target_buf)
   local win_buf_lines = vim.api.nvim_buf_get_lines(source_buf, 0, -1, false)
-  print(#win_buf_lines, M.start_line, M.end_line)
+  -- start_line-1 is inclusive and 0-indexed while user TUI is 1-index
+  -- end_line is exclusive because of the 0-index property
   vim.api.nvim_buf_set_lines(target_buf, M.start_line - 1, M.end_line, false, win_buf_lines)
   M.start_line = nil
   M.end_line = nil
