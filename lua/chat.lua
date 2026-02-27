@@ -22,6 +22,7 @@ end
 
 function M.show_chat_box(selection)
   -- Get selected lines
+  M.main_buf = vim.api.nvim_get_current_buf()
   local lines = {}
   if selection then
     lines = M.get_visual_selection()
@@ -57,6 +58,8 @@ end
 
 function M.close_chat_box()
   if M.chat_win_id then
+    local chat_buf = vim.api.nvim_win_get_buf(M.chat_win_id)
+    M.flush_to_buf(chat_buf, M.main_buf)
     vim.api.nvim_win_close(M.chat_win_id, true)
     M.chat_win_id = nil
   else
@@ -64,11 +67,20 @@ function M.close_chat_box()
   end
 end
 
+function M.flush_to_buf(source_buf, target_buf)
+  local win_buf_lines = vim.api.nvim_buf_get_lines(source_buf, 0, -1, false)
+  print(#win_buf_lines, M.start_line, M.end_line)
+  vim.api.nvim_buf_set_lines(target_buf, M.start_line - 1, M.end_line, false, win_buf_lines)
+  M.start_line = nil
+  M.end_line = nil
+end
+
 function M.get_visual_selection()
   -- Get start and end positions
   local _, s_line, s_col, _ = unpack(vim.fn.getpos("v"))
   local _, e_line, e_col, _ = unpack(vim.fn.getpos("."))
-
+  M.start_line = s_line
+  M.end_line = e_line
   -- Ensure start is before end for selection logic
   if s_line > e_line or (s_line == e_line and s_col > e_col) then
     s_line, e_line = e_line, s_line
