@@ -2,31 +2,25 @@ local M = {}
 
 function M.setup(opts)
   opts = opts or {}
-
-  vim.keymap.set("n", "<Leader>81", function()
-    if opts.name then
-      print("chat: hello world from " .. opts.name)
+  vim.keymap.set("n", "<Leader>8?", function()
+    if opts.dev then
+      print("local setup\n")
     else
-      print("chat: hello world")
+      print("remote setup\n")
     end
-  end, { desc = "Say Hello World" })
+  end, { desc = "Help" })
 
-  vim.keymap.set("v", "82", function()
-    M.show_chat_box(true)
-  end, { desc = "Open selected chat box" })
-  vim.keymap.set("n", "<Leader>82", function()
-    M.show_chat_box(false)
-  end, { desc = "Open clean chat box" })
-  vim.keymap.set("n", "<Leader>83", M.close_chat_box, { desc = "Close chat box" })
+  vim.keymap.set("v", "<Leader>88", function()
+    M.show_chat_box()
+  end, { desc = "Open selected in chat box" })
+  vim.keymap.set("n", "<Leader>88", M.close_chat_box, { desc = "Apply changes" })
 end
 
-function M.show_chat_box(selection)
+function M.show_chat_box()
   -- Get selected lines
   M.main_buf = vim.api.nvim_get_current_buf()
   local lines = {}
-  if selection then
-    lines = M.get_visual_selection()
-  end
+  lines = M.get_visual_selection()
 
   -- Create new buffer
   local new_buf = vim.api.nvim_create_buf(false, true)
