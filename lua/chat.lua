@@ -2,11 +2,14 @@ local M = {}
 
 function M.setup(opts)
   opts = opts or {}
+  local help = [[
+  1. Select lines and <Leader>88 to open chat box window
+  2. Prompt and <Leader>88 to apply changes and close the chat box window]]
   vim.keymap.set("n", "<Leader>8?", function()
     if opts.dev then
-      print("local setup\n")
+      print("local setup\n" .. help)
     else
-      print("remote setup\n")
+      print("remote setup\n" .. help)
     end
   end, { desc = "Help" })
 
