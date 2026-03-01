@@ -7,9 +7,9 @@ function M.setup(opts)
   2. Prompt and <Leader>88 to apply changes and close the chat box window]]
   vim.keymap.set("n", "<Leader>8?", function()
     if opts.dev then
-      print("local setup\n" .. help)
+      print("chat.nvim: local setup\n" .. help)
     else
-      print("remote setup\n" .. help)
+      print("chat.nvim: remote setup\n" .. help)
     end
   end, { desc = "Help" })
 
@@ -60,7 +60,7 @@ function M.close_chat_box()
     vim.api.nvim_win_close(M.chat_win_id, true)
     M.chat_win_id = nil
   else
-    print("no open window")
+    print("chat.nvim: Select lines first")
   end
 end
 
