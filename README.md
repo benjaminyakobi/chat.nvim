@@ -4,8 +4,7 @@ NeoVim AI Plugin inspired by ThePrimeagen/99
 ## Installation
 Using [lazy.nvim](https://github.com/folke/lazy.nvim)
 
-Add one of the following to your Neovim configuration:
-
+Basic setup:
 ```lua
   {
     'benjaminyakobi/chat.nvim',
@@ -14,13 +13,13 @@ Add one of the following to your Neovim configuration:
     end,
   },
 ```
-or
+Local dev setup:
 
 ```lua
   {
     'benjaminyakobi/chat.nvim',
     config = function()
-      require('chat').setup({ name = 'your-name' })
+      require('chat').setup({ dev = true })
     end,
   },
 ```
